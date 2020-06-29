@@ -224,10 +224,11 @@ exports.getOrdenesJson= function(callback){
 	
 }
 exports.closeShop=function (callback) {  //CERRAR TIENDA
-	ordenesDir="./menu/mainmenu.csv";
+	mainmenuDir="./menu/mainmenu.csv";
+	cacheDir="./menu/workingcopy/menu.json";
 	//TIMESTAMP en segundos
 	archivoDir="./archivo/mainmenu_"+Math.floor(Date.now() / 1000);
-    fs.rename(ordenesDir, archivoDir, function (err) {
+    fs.rename(mainmenuDir, archivoDir, function (err) {
         if (err) {
             if (err.code === 'EXDEV') {
                 copy();
@@ -236,7 +237,8 @@ exports.closeShop=function (callback) {  //CERRAR TIENDA
             }
             return;
         }
-        callback();
+        fs.unlink(cacheDir, callback);
+        
         
     });
 
