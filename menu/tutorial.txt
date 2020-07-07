@@ -41,6 +41,8 @@ Ubuntu 18.04
 SkyPunkG3d4tsu!
 N1rv4n4esley!!
 
+https://github.com/DRFresco/orion-v1.git
+
 ssh root@199.244.51.123 
 rm -rf /root/orion/menuManager/ordenes
 rm -rf /orion/menuManager/archivo

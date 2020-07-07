@@ -28,7 +28,7 @@ exports.inicializa=function (){
 		    try {
 		        this.liveMenu=JSON.parse(jsonString);
 		        this.cache=true;
-		        //console.log(this.liveMenu);
+		        console.log("updating live menu");
 		} catch(err) {
 		        console.log('Error parsing JSON string:', err)
 		    }
@@ -74,7 +74,7 @@ exports.menu=function (callback){
 	 })	
 	 .on("end", function(){
 	 	this.liveMenu=menu;
-	 	//console.log(this.liveMenu)
+	 	//console.log("Live menu exists",this.liveMenu)
 	 	callback(this.liveMenu);
 	 })
 }
@@ -91,10 +91,12 @@ exports.actualiza=function (orden,callback){
 		if( Number.parseFloat( orden[key][1] ) > 0 ){
 
 			//console.log(productoProductor,orden[key][1])
-			//productor_list=this.liveMenu[ 'EL RENACER DEL CAMPO ( @elrenacerdelcampo)' ]
+
 			productor_list=this.liveMenu[ productoProductor[1] ]
 
-
+			if(!productor_list){
+				console.log("BUG!",productoProductor,this.liveMenu)
+			}
 			for(i=0;i<productor_list.length;i++){
 				if(productoProductor[0]==productor_list[i][0]){
 					//ACTUALIZA INVENTARIO EN LIVE MENU
@@ -293,8 +295,9 @@ exports.closeOp=function (callback) {	//CERRAR OPERACIÓN
 }
 
 exports.uploadmenu= function(newmenu,callback){
+	this.liveMenu={}; 
 	fs.unlink("./menu/workingcopy/menu.json", function (err) {
-			    
+			   
 	});
 
 	fs.writeFile('./menu/mainmenu.csv', newmenu, function (err) {

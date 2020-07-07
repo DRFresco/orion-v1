@@ -159,7 +159,10 @@ app.get('/adminPrint', function (req, res) {
 
 
 // BACK
+app.get('/operacion', function (req, res) {
+	res.sendFile(path.join(__dirname + '/sitio/operacion.html'));
 
+});
 app.post('/backconfirm', function (req, res) {
 	nombreorden=req.body["nombre"];
 	console.log("./ordenes/"+nombreorden)
@@ -224,7 +227,14 @@ app.get('/status', function (req, res) {
 app.post('/uploadmenu', function (req, res) {
 	newmenu=req.body["newmenu"];
 	menuManager.uploadmenu(newmenu,function (respuesta){
-		res.json(respuesta);
+		menuManager.liveMenu={};
+		menuManager.menu(function(menuR){
+			menuManager.updateCache(menuR);
+			menuManager.inicializa();
+			res.json(respuesta);
+			console.log("initializing...");
+		});
+		
 	});
 
 });
