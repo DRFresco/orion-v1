@@ -9,13 +9,15 @@ var pdf = require('html-pdf');
 const multer = require('multer');
 const csv = require('fast-csv');
 _ = require('underscore');
+const readline = require('readline');
 
 //          (_    ,_,    _) 
 //          / `'--) (--'` \
 //         /  _,-'\_/'-,_  \
 //        /.-'     "     '-.\
 //         Julia Orion Smith
-const port = 1111; 
+
+const port = 3000; 
 
 
 app.use(bodyParser.json())
@@ -118,7 +120,17 @@ app.get('/hello', function (req, res) {
 });
 //ADMIN
 app.get('/adminPrint', function (req, res) {
-	thistime="";
+	printsinglePDF(function(){
+		console.log("printed");
+		res.send("ok")
+	});
+
+});
+
+
+
+function printsinglePDF(callback) {
+thistime="";
 	bandeja={};
 	printed=0;
 	var options = { format: 'A4' };
@@ -145,7 +157,7 @@ app.get('/adminPrint', function (req, res) {
 				if(!bandeja[key] && printed<1){
 					printed++;
 					    pdf.create(htmls[key],{ format: 'Letter' }).toFile('./bandeja/'+key+'.pdf', function(err, res) {
-							if (err){console.log(err);} else {console.log(res);}
+							if (err){console.log(err);} else {console.log(res);callback();}
 						});
 				}
 		      
@@ -155,7 +167,11 @@ app.get('/adminPrint', function (req, res) {
 			 //  });
 		});
 	});
-});
+}
+
+
+
+
 
 
 // BACK
