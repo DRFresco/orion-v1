@@ -11,6 +11,7 @@ const csv = require('fast-csv');
 _ = require('underscore');
 const readline = require('readline');
 
+
 //          (_    ,_,    _) 
 //          / `'--) (--'` \
 //         /  _,-'\_/'-,_  \
@@ -18,6 +19,7 @@ const readline = require('readline');
 //         Julia Orion Smith
 
 const port = 1111; 
+const _K = "MTIzNHx8b3Jpb24="; 
 
 
 app.use(bodyParser.json())
@@ -170,7 +172,18 @@ thistime="";
 }
 
 
+//ORION sec layer
+app.post('/orion/*', function (req, res, next) {
+	_P=req.body["permission"];
+	if(_P==_K){
+	
+		next();
 
+	}
+	else{
+		res.send({"status":"err","err":"incorrect key"})
+	}
+});
 
 
 
@@ -179,7 +192,7 @@ app.get('/operacion', function (req, res) {
 	res.sendFile(path.join(__dirname + '/sitio/operacion.html'));
 
 });
-app.post('/backconfirm', function (req, res) {
+app.post('/orion/backconfirm', function (req, res) {
 	nombreorden=req.body["nombre"];
 	console.log("./ordenes/"+nombreorden)
 	fs.readFile("./ordenes/"+nombreorden, (err, data) => {
@@ -197,7 +210,7 @@ app.post('/backconfirm', function (req, res) {
 	
 	
 });
-app.post('/backunconfirm', function (req, res) {
+app.post('/orion/backunconfirm', function (req, res) {
 	nombreorden=req.body["nombre"];
 	fs.unlink("./bandeja/"+nombreorden+".pdf", function (err) {
 	    if (err) throw err;
@@ -205,7 +218,7 @@ app.post('/backunconfirm', function (req, res) {
 	     res.sendStatus(200)
 	}); 
 });
-app.get('/backOrdenes', function (req, res) {
+app.post('/orion/backOrdenes', function (req, res) {
 	menuManager.getOrdenesJson(function(ordenes){
   		res.send(ordenes);
   	});
@@ -220,14 +233,11 @@ Object.size = function(obj) {
     return size;
 };
 
-// OPERACIÓN  //cambiar get a post para hacer sistema rudimentario de seguridad
-
+// OPERACIÓN  
 app.get('/orionadmin', function (req, res) {
-	console.log(path.join(__dirname + '/sitio/admin.html'));
 	res.sendFile(path.join(__dirname + '/sitio/admin.html'));
 });
 app.get('/back', function (req, res) {
-
 	res.sendFile(path.join(__dirname + '/sitio/back.html'));
 });
 app.get('/status', function (req, res) {
@@ -240,42 +250,50 @@ app.get('/status', function (req, res) {
 	if (fs.existsSync(menufile)){status.menu=1; }
 	res.json(status);
 });
-app.post('/uploadmenu', function (req, res) {
-	newmenu=req.body["newmenu"];
-	menuManager.uploadmenu(newmenu,function (respuesta){
-		menuManager.liveMenu={};
-		menuManager.menu(function(menuR){
-			menuManager.updateCache(menuR);
-			menuManager.inicializa();
-			res.json(respuesta);
-			console.log("initializing...");
+app.post('/orion/uploadmenu', function (req, res) {
+	
+		newmenu=req.body["newmenu"];
+		menuManager.uploadmenu(newmenu,function (respuesta){
+			menuManager.liveMenu={};
+			menuManager.menu(function(menuR){
+				menuManager.updateCache(menuR);
+				menuManager.inicializa();
+				res.json(respuesta);
+				console.log("initializing...");
+			});
+			
 		});
-		
-	});
+	
 
 });
-app.post('/closeShop', function (req, res) {
-	menuManager.closeShop(function(err){
-		if(!err){
-			res.send({"status":"suave",});
-		}
-		else{
-			res.send({"status":"err","err":err});
-		}
-		
-	})
+app.post('/orion/closeShop', function (req, res) {
+
+		menuManager.closeShop(function(err){
+			if(!err){
+				res.send({"status":"suave",});
+			}
+			else{
+				res.send({"status":"err","err":err});
+			}
+			
+		})
+	
 })
-app.post('/closeOp', function (req, res) {
-	console.log("closing operation");
-	menuManager.closeOp(function(err){
-		if(!err){
-			res.send({"status":"suave",});
-		}
-		else{
-			res.send({"status":"err","err":err});
-		}
+app.post('/orion/closeOp', function (req, res) {
+	
+		console.log("closing operation");
+		menuManager.closeOp(function(err){
+			if(!err){
+				res.send({"status":"suave",});
+			}
+			else{
+				res.send({"status":"err","err":err});
+			}
+			
+		})
+	
 		
-	})
+	
 });
 
 //PUERTO
