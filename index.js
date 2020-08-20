@@ -27,6 +27,7 @@ var fs = require("fs");
 var path = require('path');
 var menuManager = require('./menuManager');
 var printingSystem = require('./printingSystem');
+var mailer = require('./mailer');
 //console.log("public",__dirname + '/sitio')
 app.use('/', express.static(__dirname + '/sitio'));
 app.use('/bandeja/', express.static(__dirname + '/bandeja'));
@@ -293,6 +294,16 @@ app.post('/orion/closeOp', function (req, res) {
 		})
 	
 		
+	
+});
+
+//MAILER
+
+app.get('/testmail', function (req, res) {
+	mailer.testmail(function(error){
+		if(error){res.send(error);}
+		else{res.send("cool");}
+	})
 	
 });
 
