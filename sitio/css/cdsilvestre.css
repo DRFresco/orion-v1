@@ -1,0 +1,16 @@
+body {
+	background: none;
+}
+.icon-search {
+	width: 20px;
+}
+
+.search-orden {
+	background-image: url('../img/search.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	color: transparent;
+}
+#user-cart-panel {
+	margin-right: 20px;
+}
