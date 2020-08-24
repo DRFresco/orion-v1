@@ -218,27 +218,9 @@ body{
 <link rel="stylesheet" href="css/orion.css">
 <link rel="stylesheet" href="css/cdsilvestre.css?v=0.01">
 <body>
-<div class="container-fluid fixed-top bg-white border" style="display: none;">
-	<div class="row">
-		<div class="col-2"><img src="./img/logo.png" /></div>
-		<div class="col-4">
-			<form>
-				<div class="form-row align-items-center">
-					<div class="input-group">
-						<input type="text" name="myinput" placeholder="Buscar Orden" required />
-						<div class="input-group-append"><button type="button" class="btn btn-primary btn-sm btn-info"><img src="./img/search.svg" class="icon-search" /></button></div>
-				        <div class="invalid-feedback">
-				          Proporciona tu # de orden.
-				        </div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="col-6"></div>
-	</div>
-</div>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="main-navbar">
 	<a class="navbar-brand" href="/"><img src="./img/logo.png" /></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -286,6 +268,36 @@ body{
 
 	</div>
 </nav>
+
+<div class="content">
+	<div class="row">
+		<div class="col-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Datos de env&iacute;o</h5>
+					<p class="card-text">Juan P&eacute;rez Perea</p>
+					<p class="card-text">Av. Revoluci&oacute;n #123</p>
+					<p class="card-text">Col. Esp&iacute;ritu Santo</p>
+					<p class="card-text">Ciudad de M&eacute;xico</p>
+					<a href="#" class="btn btn-primary"><img src="./img/shopping-cart.svg" />&nbsp;Ver Carro</a>
+				</div>
+			</div>		
+		</div>
+		<div class="col-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Detalles de Compra</h5>
+					<p class="card-text">Fecha de Entrega 2020/08/29</p>
+					<p class="card-text">Subtotal $360.00</p>
+					<p class="card-text">Costo de Env&iacute;o $20.00</p>
+					<p>Total $380.00</p>
+					<a href="#" class="btn btn-primary"><img src="./img/user.svg" />&nbsp;Mi Perfil</a>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -496,6 +508,14 @@ Claro de luna - Kamasi Washington
 </div> <!-- table_container -->
 </body>
 <script type="text/javascript">
+//LAYOUT
+$(window).resize(function () { 
+   $('body').css('padding-top', $('#main-navbar').height()+10);
+});
+
+$(window).load(function () { 
+   $('body').css('padding-top', $('#main-navbar').height()+10);         
+});
 _MENU={};
 _productos={};
 carselected=false;

@@ -1,5 +1,6 @@
 body {
 	background: none;
+	padding-top: 120px;
 }
 .icon-search {
 	width: 20px;
@@ -12,5 +13,11 @@ body {
 	color: transparent;
 }
 #user-cart-panel {
-	margin-right: 20px;
+	margin-right: 20%;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
 }
