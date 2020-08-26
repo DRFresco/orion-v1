@@ -15,7 +15,24 @@ body {
 #user-cart-panel {
 	margin-right: 20%;
 }
-
+#banner-home {
+	opacity: 0.5;
+}
+.main-title {
+	font-size: 8rem;
+    text-shadow: 2px 2px #999;
+    color: #9f9;
+}
+.main-description {
+	font-size: 2rem;
+    color: #262;
+    text-shadow: 2px 2px #dfe;
+}
+.liga-whats {
+	font-size: 2rem;
+	color: #22f;
+	text-decoration: underline;
+}
 @media (max-width: 979px) {
   body {
     padding-top: 0px;
